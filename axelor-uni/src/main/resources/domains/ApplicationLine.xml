@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="uni" package="com.axelor.apps.uni.db"/>
+
+  <entity name="ApplicationLine" lang="java">
+  
+    <many-to-one ref="com.axelor.apps.uni.db.Student" name="student" title="Student" />
+    <boolean name="lenguageRequirement" title="Complete Lenguage Requirement"/>
+	<many-to-one name="transcript" ref="com.axelor.meta.db.MetaFile" title="Transcript" />
+	<boolean name="isTranscriptValid" title="Valid Transcript"/>
+	<many-to-one name="cvRecord" ref="com.axelor.meta.db.MetaFile" title="CV" />
+	<boolean name="isCvValid" title="Valid CV"/>
+	<many-to-one name="motivationLetter" ref="com.axelor.meta.db.MetaFile" title="Motivation Letter" />
+	<boolean name="isMotivationalLetterValid" title="Valid Motivation Letter" />
+    <string name="description" title="Description" />
+
+	<integer name="applicantSelect" title="Status" selection="uni.applicant.selection.status.type.select" />
+	<many-to-one ref="com.axelor.apps.uni.db.Definition" name="definition" />
+  </entity>
+
+</domain-models>

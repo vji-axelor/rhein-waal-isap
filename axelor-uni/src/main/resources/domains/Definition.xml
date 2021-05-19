@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="uni" package="com.axelor.apps.uni.db"/>
+
+  <entity name="Definition" lang="java">
+  
+    <string name="topic" title="Topic" namecolumn="true" />
+    <string name="projectDescription" title="Project Description" large="true" />
+  	<string name="requirement" title="Requirement of Applicant" large="true" />
+    <integer name="statusSelect" title="Status" selection="uni.definition.status.type.select" default="1" />
+    
+    <one-to-many ref="com.axelor.apps.uni.db.ApplicationLine" name="applicanStudents" mappedBy="definition" title="Applicants"/>
+  </entity>
+	
+</domain-models>

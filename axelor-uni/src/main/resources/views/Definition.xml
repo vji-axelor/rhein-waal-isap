@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+    
+    <grid name="definition-grid" title="Definitions" model="com.axelor.apps.uni.db.Definition" >
+     	<hilite if="statusSelect == 4" color="success"/>
+    	<hilite if="statusSelect == 5" color="danger"/>
+     	<field name="topic" />
+     	<field name="statusSelect" />
+    </grid>
+    
+   	<form name="definition-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
+   	
+   	<panel name="firstPanel" >
+		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
+		<field name="topic" css="label-bold bold large" colSpan="12" readonlyIf="statusSelect &gt; 1" />
+     	<spacer colSpan="12"/>
+     	<field name="projectDescription" readonlyIf="statusSelect &gt; 1" />
+     	<spacer colSpan="12"/>
+     	<field name="requirement" readonlyIf="statusSelect &gt; 1"/>
+	</panel>
+		
+	<panel name="sidePanel" sidebar="true" >
+		<field name="createdOn" />
+		<field name="updatedOn" />
+		<field name="createdBy" />
+		<field name="updatedBy" />
+	</panel>
+	
+	<panel name="sidePanel" sidebar="true" >
+			<button showIf="statusSelect == 2" onClick="action-attrs-uni-definition-send-interview-process" name="inteviewProcess" title="send to Interview Process"/>
+			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-success" name="success" title="Success"/>
+			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-unsuccess" name="unSuccess" title="Unsuccess"/>
+	</panel>
+	
+	<panel-related onChange="save" field="applicanStudents" showIf="statusSelect &gt; 1" readonlyIf="statusSelect &gt; 2" form-view="application-line-form" grid-view="application-line-grid" />	
+	</form>
+	
+	
+	
+	
+	
+	<form name="definition-publish-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
+   	
+	   	<panel name="firstPanel" >
+			<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
+			<field name="topic" css="label-bold bold large" colSpan="12"/>
+	     	<spacer colSpan="12"/>
+	     	<field name="projectDescription" />
+	     	<spacer colSpan="12"/>
+	     	<field name="requirement" />
+		</panel>
+			
+		<panel name="sidePanel" sidebar="true" >
+			<field name="createdOn" />
+			<field name="updatedOn" />
+			<field name="createdBy" />
+			<field name="updatedBy" />
+		</panel>
+		
+		<panel name="sidePanel" sidebar="true" >
+			<button showIf="statusSelect == 1" onClick="action-attrs-uni-definition-send-applicant-selection,save" name="applicantSelection" title="send to Applicant Selection" />
+		</panel>
+	</form>
+	
+	<action-attrs name="action-attrs-uni-definition-send-applicant-selection">
+		<attribute name="value" for="statusSelect" expr="eval: 2"/>
+	</action-attrs>
+	
+	<action-attrs name="action-attrs-uni-definition-send-interview-process">
+		<attribute name="value" for="statusSelect" expr="eval: 3"/>
+	</action-attrs>
+	
+	<action-attrs name="action-attrs-uni-definition-send-success">
+		<attribute name="value" for="statusSelect" expr="eval: 4"/>
+	</action-attrs>
+	
+	<action-attrs name="action-attrs-uni-definition-send-unsuccess">
+		<attribute name="value" for="statusSelect" expr="eval: 5"/>
+	</action-attrs>
+	
+</object-views>

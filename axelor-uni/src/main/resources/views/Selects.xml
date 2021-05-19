@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+
+
+	<!-- Nomenclature : * name : "interfaceName" + "fieldName" + ".select" -->
+	
+	<selection name="uni.definition.status.type.select">
+		<option value="1">Create</option>
+		<option value="2">Applicant Selection</option>
+		<option value="3">Interview Process</option>
+		<option value="4">Success</option>
+		<option value="5">UnSuccess</option>
+	</selection>
+
+	<selection name="uni.applicant.selection.status.type.select">
+		<option value="1">Initial selection</option>
+		<option value="2">Interview</option>
+		<option value="3">Select Applicant</option>
+		<option value="4">Reject Applicant</option>
+	</selection>
+	
+</object-views>
