@@ -58,7 +58,6 @@
 	<menuitem name="outgoing-root" title="Outgoing" order="-108" if=""
 		icon="" icon-background="#2fa042"/>
 		
-		
 	<menuitem name="uni-outgoing-definition.publish" parent="outgoing-root"
 		title="ISAP Definition" action="uni.outgoing.isap.definition.publish" order="2"/>
 
@@ -68,16 +67,6 @@
 		<view type="form" name="definition-publish-form"/>
 	</action-view>	
 		
-	<menuitem name="uni-outgoing-definition" parent="outgoing-root"
-		title="ISAP Selection" action="uni.outgoing.isap.definition" order="3"/>
-
-	<action-view name="uni.outgoing.isap.definition" title="ISAP Document"
-		model="com.axelor.apps.uni.db.Definition" >
-		<view type="grid" name="definition-grid"/>
-		<view type="form" name="definition-form"/>
-		<domain>self.statusSelect = 2</domain>
-	</action-view>
-	
 	<menuitem name="uni-outgoing-definition-interview" parent="outgoing-root"
 		title="ISAP Interview" action="uni.outgoing.isap.definition.interview" order="4"/>
 
@@ -89,6 +78,65 @@
 	</action-view>
 	
 	<menuitem name="uni-outgoing-definition-complete" parent="outgoing-root"
+		title="ISAP Complete" action="uni.outgoing.isap.definition.complete" order="5"/>
+
+	<action-view name="uni.outgoing.isap.definition.complete" title="ISAP Complete"
+		model="com.axelor.apps.uni.db.Definition" >
+		<view type="grid" name="definition-grid"/>
+		<view type="form" name="definition-form"/>
+		<domain>self.statusSelect = 4 OR self.statusSelect = 5</domain>
+	</action-view>
+	<!-- ================================================================================================== -->
+	
+	
+	<menuitem name="outgoing-student-application-root" title="Exchange Program" order="-108" if=""
+		icon="" icon-background="#2fa042"/>
+	
+	<menuitem name="uni-outgoing-student-application" parent="outgoing-student-application-root"
+		title="Student Application" action="uni.outgoing.student.application" order="5"/>
+
+	<action-view name="uni.outgoing.student.application" title="Student Application"
+		model="com.axelor.apps.uni.db.ApplicationLine" >
+		<view type="form" name="application-line-student-form"/>
+	</action-view>
+	
+	
+	<menuitem name="uni-outgoing-student-application-definition" parent="outgoing-student-application-root"
+		title="ISAP Definitions" action="uni.outgoing.isap.student.show.definition" order="3"/>
+
+	<action-view name="uni.outgoing.isap.student.show.definition" title="ISAP Definition"
+		model="com.axelor.apps.uni.db.Definition" >
+		<view type="grid" name="definition-student-grid"/>
+		<view type="form" name="definition-student-form"/>
+		<domain>self.statusSelect = 2</domain>
+	</action-view>
+	
+	<!-- ================================================================================================== -->
+	
+	<menuitem name="outgoing-selection-committee-root" title="Selection Committee" order="-108" if=""
+		icon="" icon-background="#2fa042"/>
+		
+	<menuitem name="uni-outgoing-selection-committee-definition" parent="outgoing-selection-committee-root"
+		title="ISAP Selection" action="uni.outgoing.isap.definition" order="3"/>
+
+	<action-view name="uni.outgoing.isap.definition" title="ISAP Document"
+		model="com.axelor.apps.uni.db.Definition" >
+		<view type="grid" name="definition-grid"/>
+		<view type="form" name="definition-form"/>
+		<domain>self.statusSelect = 2</domain>
+	</action-view>
+	
+	<menuitem name="uni-outgoing-selection-committee-definition-interview" parent="outgoing-selection-committee-root"
+		title="ISAP Interview" action="uni.outgoing.isap.definition.interview" order="4"/>
+
+	<action-view name="uni.outgoing.isap.definition.interview" title="ISAP Interview"
+		model="com.axelor.apps.uni.db.Definition" >
+		<view type="grid" name="definition-grid"/>
+		<view type="form" name="definition-form"/>
+		<domain>self.statusSelect = 3</domain>
+	</action-view>
+	
+	<menuitem name="uni-outgoing-definition-selection-committee-complete" parent="outgoing-selection-committee-root"
 		title="ISAP Complete" action="uni.outgoing.isap.definition.complete" order="5"/>
 
 	<action-view name="uni.outgoing.isap.definition.complete" title="ISAP Complete"

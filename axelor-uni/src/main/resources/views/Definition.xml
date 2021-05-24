@@ -10,6 +10,11 @@
      	<field name="statusSelect" />
     </grid>
     
+    <grid name="definition-student-grid" title="Definitions" model="com.axelor.apps.uni.db.Definition" >
+     	<field name="topic" />
+     	<field name="statusSelect" />
+    </grid>
+    
    	<form name="definition-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
    	
    	<panel name="firstPanel" >
@@ -29,12 +34,31 @@
 	</panel>
 	
 	<panel name="sidePanel" sidebar="true" >
-			<button showIf="statusSelect == 2" onClick="action-attrs-uni-definition-send-interview-process" name="inteviewProcess" title="send to Interview Process"/>
-			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-success" name="success" title="Success"/>
-			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-unsuccess" name="unSuccess" title="Unsuccess"/>
+			<button showIf="statusSelect == 2" onClick="action-attrs-uni-definition-send-interview-process,save,close" name="inteviewProcess" title="send to Interview Process"/>
+			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-success,save,close" name="success" title="Success"/>
+			<button showIf="statusSelect == 3" onClick="action-attrs-uni-definition-send-unsuccess,save,close" name="unSuccess" title="Unsuccess"/>
 	</panel>
 	
 	<panel-related onChange="save" field="applicanStudents" showIf="statusSelect &gt; 1" readonlyIf="statusSelect &gt; 2" form-view="application-line-form" grid-view="application-line-grid" />	
+	
+	
+	</form>
+	
+	
+	
+	
+	
+	<form name="definition-student-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
+   	
+   	<panel name="firstPanel" >
+		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect" readonly="true"/>
+		<field name="topic" css="label-bold bold large" colSpan="12"  readonly="true" />
+     	<spacer colSpan="12"/>
+     	<field name="projectDescription"  readonly="true"/>
+     	<spacer colSpan="12"/>
+     	<field name="requirement"  readonly="true"/>
+	</panel>
+	
 	</form>
 	
 	
@@ -60,7 +84,7 @@
 		</panel>
 		
 		<panel name="sidePanel" sidebar="true" >
-			<button showIf="statusSelect == 1" onClick="action-attrs-uni-definition-send-applicant-selection,save" name="applicantSelection" title="send to Applicant Selection" />
+			<button hideIf="id == null || statusSelect != 1" onClick="action-attrs-uni-definition-send-applicant-selection,save,close" name="applicantSelection" title="send to Applicant Selection" />
 		</panel>
 	</form>
 	

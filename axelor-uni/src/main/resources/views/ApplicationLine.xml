@@ -37,13 +37,35 @@
 		
 	<panel sidebar="true">
 		<field name="applicantSelect" />
-		<button onClick="action-attrs-uni-application-line-initial-selection" name="initialSelection" title="Initial selection" />
-		<button showIf="id" onClick="action-attrs-uni-application-line-interview" name="interview" title="Interview"/>
-		<button showIf="id" onClick="action-attrs-uni-application-line-select-applicant" name="selectApplicant" title="Select Applicant"/>
-		<button onClick="action-attrs-uni-application-line-reject-applicant" name="rejectApplicant" title="Reject Applicant"/>
+		<button onClick="action-attrs-uni-application-line-initial-selection,save,close" name="initialSelection" title="Initial selection" />
+		<button showIf="id and __parent__.statusSelect == 2" onClick="action-attrs-uni-application-line-interview,save,close" name="interview" title="Interview"/>
+		<button showIf="id and __parent__.statusSelect == 2" onClick="action-attrs-uni-application-line-select-applicant,save,close" name="selectApplicant" title="Select Applicant"/>
+		<button onClick="action-attrs-uni-application-line-reject-applicant,save,close" name="rejectApplicant" title="Reject Applicant"/>
 	</panel>	
 		
 	</form>
+	
+	<form name="application-line-student-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" onLoad="">
+   	
+   	<panel name="firstPanel">
+		<field name="student" canNew="true" />
+		
+		<field name="definition" />
+		
+		<field name="transcript" widget="binary-link" />
+     	
+     	<field name="cvRecord" widget="binary-link" />
+     	
+     	<field name="motivationLetter" widget="binary-link" />
+     	
+     	<field name="description" widget="html" colSpan="12"/>
+     	
+	</panel>
+		
+	</form>
+	
+	
+	
 	
 	<action-attrs name="action-attrs-uni-application-line-initial-selection">
 		<attribute name="value" for="applicantSelect" expr="eval: 1"/>
