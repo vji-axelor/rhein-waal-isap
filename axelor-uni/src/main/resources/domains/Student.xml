@@ -11,6 +11,7 @@
   	<string name="lastName" title="Last Name"/>
     <string name="phone" title="Phone"/>
     <string name="email" title="Email"/>
+    <one-to-one ref="com.axelor.apps.message.db.EmailAddress" name="emailAddress"/> 
     
     <many-to-one ref="com.axelor.apps.uni.db.University" name="university" title="University" />
 

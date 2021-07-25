@@ -18,6 +18,7 @@
 			<field name="lastName" title="Name" />
 			<field name="phone" />
 			<field name="email" />
+			<field name="emailAddress" canSelect="false" canNew="true"/>
 			<field name="university" />
 	</panel>
 		

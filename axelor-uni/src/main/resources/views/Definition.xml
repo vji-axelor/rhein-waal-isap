@@ -17,6 +17,12 @@
     
    	<form name="definition-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
    	
+   	<menubar>
+	    <menu name="emailSend" title="Email Send" icon="fa-files-o" showTitle="true">
+	      <item name="email" title="Email" action="action-definition-send-email"/>
+	  	</menu>
+   	</menubar>
+   	
    	<panel name="firstPanel" >
 		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
 		<field name="topic" css="label-bold bold large" colSpan="12" readonlyIf="statusSelect &gt; 1" />
@@ -103,5 +109,9 @@
 	<action-attrs name="action-attrs-uni-definition-send-unsuccess">
 		<attribute name="value" for="statusSelect" expr="eval: 5"/>
 	</action-attrs>
+	
+	<action-method name="action-definition-send-email">
+		<call class="com.axelor.apps.uni.web.DefinitionController" method="sendEmail"/>
+	</action-method>
 	
 </object-views>
