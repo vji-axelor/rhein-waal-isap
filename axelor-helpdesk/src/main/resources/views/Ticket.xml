@@ -51,7 +51,8 @@
 					</editor>
 				</field>
 			</panel>
-			<field name="subject" colSpan="12"/>
+			<field name="subject" colSpan="6"/>
+			<field name="department" colSpan="6" />
 			<field name="mailSubject"/>
 			<field name="slaPolicy.reachStageSelect" hidden="true"/>
 		</panel>

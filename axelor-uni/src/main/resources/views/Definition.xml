@@ -15,7 +15,7 @@
      	<field name="statusSelect" />
     </grid>
     
-   	<form name="definition-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large">
+   	<form name="definition-form" title="Definition" model="com.axelor.apps.uni.db.Definition" width="large" canNew="false" canDelete="false" >
    	
    	<menubar>
 	    <menu name="emailSend" title="Email Send" icon="fa-files-o" showTitle="true">

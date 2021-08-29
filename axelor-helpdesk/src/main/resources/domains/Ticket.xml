@@ -29,6 +29,7 @@
 		<one-to-many name="timerList" ref="com.axelor.apps.base.db.Timer"/>
 		<decimal name="realTotalDuration" title="Real total duration (Hours)" min="0" default="0" />
 		<boolean name="timerState" readonly="true"/>
+		<string name="department" title="Department" />
 
 		<extra-code>
 			<![CDATA[
