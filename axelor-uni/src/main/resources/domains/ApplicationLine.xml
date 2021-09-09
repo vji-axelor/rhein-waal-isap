@@ -16,6 +16,7 @@
 	<many-to-one name="motivationLetter" ref="com.axelor.meta.db.MetaFile" title="Motivation Letter" />
 	<boolean name="isMotivationalLetterValid" title="Valid Motivation Letter" />
     <string name="description" title="Description" />
+    <string name="uniqueName" title="Application" namecolumn="true" unique="true" />
 
 	<integer name="applicantSelect" title="Status" selection="uni.applicant.selection.status.type.select" />
 	<many-to-one ref="com.axelor.apps.uni.db.Definition" name="definition" />

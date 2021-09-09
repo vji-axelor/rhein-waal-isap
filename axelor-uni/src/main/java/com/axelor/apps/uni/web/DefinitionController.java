@@ -10,6 +10,10 @@ public class DefinitionController {
 
   public void sendEmail(ActionRequest request, ActionResponse response) {
     Definition definition = request.getContext().asType(Definition.class);
-    Beans.get(DefinitionService.class).sendEmail(definition);
+    try {
+      Beans.get(DefinitionService.class).sendEmail(definition);
+    } catch (Exception e) {
+      response.setError(e.toString());
+    }
   }
 }

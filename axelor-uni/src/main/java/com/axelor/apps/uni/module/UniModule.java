@@ -18,6 +18,8 @@
 package com.axelor.apps.uni.module;
 
 import com.axelor.app.AxelorModule;
+import com.axelor.apps.uni.service.ApplicationLineService;
+import com.axelor.apps.uni.service.ApplicationLineServiceImpl;
 import com.axelor.apps.uni.service.DefinitionService;
 import com.axelor.apps.uni.service.DefinitionServiceImpl;
 
@@ -26,5 +28,6 @@ public class UniModule extends AxelorModule {
   @Override
   protected void configure() {
     bind(DefinitionService.class).to(DefinitionServiceImpl.class);
+    bind(ApplicationLineService.class).to(ApplicationLineServiceImpl.class);
   }
 }

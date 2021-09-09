@@ -7,7 +7,7 @@
      	<field name="firstName" />
 		<field name="lastName" />
 		<field name="phone" />
-		<field name="email" />
+		<field name="emailAddress" />
 		<field name="university" />
     </grid>
     
@@ -17,7 +17,7 @@
 			<field name="firstName" />
 			<field name="lastName" />
 			<field name="phone" />
-			<field name="email" />
+			<field name="emailAddress" canNew="true"/>
 			<field name="university" />
 	</panel>
 		

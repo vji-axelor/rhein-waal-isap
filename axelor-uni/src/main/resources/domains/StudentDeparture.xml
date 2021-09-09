@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="uni" package="com.axelor.apps.uni.db"/>
+
+  <entity name="StudentDeparture" lang="java">
+  
+   <many-to-one name="userStudent"  ref="com.axelor.auth.db.User" title="User Student" />
+   <many-to-one name="definition"  ref="com.axelor.apps.uni.db.Definition" title="Definition" />
+   <many-to-one name="applicant"  ref="com.axelor.apps.uni.db.ApplicationLine" title="Applicant" />
+   <many-to-one name="projectLeader" ref="com.axelor.apps.uni.db.Professor" title="Project Leader"/>
+    
+   <many-to-one name="studentLa" ref="com.axelor.meta.db.MetaFile" title="Student LA" />
+   <boolean name="isStudentLa" title="Is Valid Student LA"/>  
+   <many-to-one name="signByCoordinator" ref="com.axelor.meta.db.MetaFile" title="Sign of Exchange coordinator HSRW" />
+   <boolean name="isSignCoordinator" title="Is Sign By Exchange coordinator HSRW"/>  
+   <many-to-one name="signByHod" ref="com.axelor.meta.db.MetaFile" title="Sign of Dep. Head" />
+   <boolean name="isSignHod" title="Is Sign By Dep. Head"/>  
+   
+  
+   <many-to-one name="admissionLetter" ref="com.axelor.meta.db.MetaFile" title="Admission Letter" />
+   <boolean name="isAdmissionLetter" title="Is Admission Letter"/>  
+  
+   <many-to-one name="stipendAcceptance" ref="com.axelor.meta.db.MetaFile" title="Stipend Acceptance" />
+   <boolean name="isStipendAcceptance" title="Is Stipend Acceptance"/>  
+   <many-to-one name="safetyBriefing" ref="com.axelor.meta.db.MetaFile" title="Safety Briefing HSRW" />
+   <boolean name="isSafetyBriefing" title="Is Safety Briefing"/>  
+   
+    <many-to-one name="flightBooking" ref="com.axelor.meta.db.MetaFile" title="Flight Booking" />
+   <boolean name="isFlightBooking" title="Is Valid Visa"/>  
+    <many-to-one name="visa" ref="com.axelor.meta.db.MetaFile" title="Valid Visa" />
+   <boolean name="isValidVisa" title="Is Sign By Dep. Head"/>  
+    <many-to-one name="insurance" ref="com.axelor.meta.db.MetaFile" title="Insurance (DAAD)" />
+   <boolean name="isValidInsurance" title="Is Valid Insurance"/>  
+	<datetime name="arrivalDateTime" title="Arrival Date And Time" />   
+  </entity>
+
+</domain-models>

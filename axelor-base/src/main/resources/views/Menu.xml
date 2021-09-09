@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
 
-	<menuitem id="abs-menu-mail" name="menu-mail" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getEnterpriseCommunication()" hidden="false" order="-110"
+	<menuitem id="abs-menu-mail" name="menu-mail" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getEnterpriseCommunication()" hidden="true" order="-110"
     title="Messaging" icon="fa-users" icon-background="#84429f" />
 	
 	<menuitem title="Mailing lists" name="menu-mail-mailing-list" parent="menu-mail" order="-75"/>
@@ -28,7 +28,7 @@
 
 	<menuitem id="abs-menu-dms-config" name="menu-dms-config" title="Configuration" parent="menu-dms" order="-70" icon="fa-cog"/>
 
-    <menuitem id="abs-menu-team" name="menu-team" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getTeamManagement()" hidden="false"  order="-110"
+    <menuitem id="abs-menu-team" name="menu-team" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getTeamManagement()" hidden="true"  order="-110"
     title="Teamwork" icon="fa-user" icon-background="blue"/>
 
 	<menuitem id="abs-menu-team-tasks-due" name="menu-team-tasks-due" hidden="true" title="Tasks due"/>
@@ -41,7 +41,7 @@
 	<menuitem id="abs-menu-team-teams-my" name="menu-team-teams-my" order="-110" title="My teams" parent="menu-team-teams" action="teams.my"/>
 	<menuitem id="abs-menu-team-teams-all" name="menu-team-teams-all" order="-100" title="All teams" parent="menu-team-teams" action="teams.all"/>
 
-    <menuitem id="calendar.root.menu" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getEnableCalendars()" name="menu-calendar" order="-110" title="Calendar" icon="fa-calendar" icon-background="#34d0f7"/>
+    <menuitem id="calendar.root.menu" if="__config__.app.isApp('base') &amp;&amp; __config__.app.getApp('base').getEnableCalendars()" name="menu-calendar" order="-110" title="Calendar" hidden="true" icon="fa-calendar" icon-background="#34d0f7"/>
 
     <menuitem id="calendar.root.menu.general" name="menu-calendar-general" title="My events" parent="menu-calendar" action="calendar.root.menu.my.calendar" order="1"/>
 

@@ -32,6 +32,7 @@
      	<field name="isMotivationalLetterValid" />
      	
      	<field name="description" widget="html"/>
+     	<field name="uniqueName" hidden="true" />	
      	
 	</panel>
 		
@@ -45,27 +46,50 @@
 		
 	</form>
 	
-	<form name="application-line-student-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" onLoad="">
+	<form name="application-line-student-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="">
    	
    	<panel name="firstPanel">
-		<field name="student" canNew="true" />
+   		   		
+		<field name="student" canNew="true" canEdit="true" canSelect="false" required="true" />
 		
-		<field name="definition" />
+		<field name="definition" form-view="definition-student-form" grid-view="definition-student-grid" domain="self.statusSelect = 2" required="true" />
 		
-		<field name="transcript" widget="binary-link" />
+		<field name="transcript" widget="binary-link" required="true" />
      	
-     	<field name="cvRecord" widget="binary-link" />
+     	<field name="cvRecord" widget="binary-link" required="true" />
      	
-     	<field name="motivationLetter" widget="binary-link" />
+     	<field name="motivationLetter" widget="binary-link" required="true" />
      	
-     	<field name="description" widget="html" colSpan="12"/>
+     	<field name="description" widget="html" colSpan="12" />
      	
+	</panel>
+	
+	<panel sidebar="true">
+		<button onClick="action-application-line-method-set-unique-applicant,save" name="submit" title="Submit"/>
+		<field name="uniqueName" hidden="true" />	
 	</panel>
 		
 	</form>
 	
+	<form name="application-line-student-departure-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="">
+   	
+   	<panel name="firstPanel">
+   		   		
+		<field name="student" canNew="true" canEdit="true" canSelect="false" required="true" />
+		
+		<field name="definition" form-view="definition-student-form" grid-view="definition-student-grid" domain="self.statusSelect = 2" required="true" />
+		
+		<field name="transcript" widget="binary-link" required="true" />
+     	
+     	<field name="cvRecord" widget="binary-link" required="true" />
+     	
+     	<field name="motivationLetter" widget="binary-link" required="true" />
+     	
+     	<field name="description" widget="html" colSpan="12" />
+     	
+	</panel>
 	
-	
+	</form>
 	
 	<action-attrs name="action-attrs-uni-application-line-initial-selection">
 		<attribute name="value" for="applicantSelect" expr="eval: 1"/>
@@ -87,7 +111,10 @@
 		<attribute name="hidden" for="initialSelection" expr="__parent__.statusSelect != 2"/>
 		<attribute name="hidden" for="interview" expr="__parent__.statusSelect == 2"/>
 		<attribute name="hidden" for="selectApplicant" expr="__parent__.statusSelect == 2"/>
-		
 	</action-attrs>
+
+	<action-method name="action-application-line-method-set-unique-applicant">
+		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="setUniqueApplicant"/>
+	</action-method>
 	
 </object-views>

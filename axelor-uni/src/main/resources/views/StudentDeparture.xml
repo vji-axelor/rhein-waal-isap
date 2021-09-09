@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+    
+    <grid name="student-departure-grid" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" >
+     	<field name="definition"/>
+		<field name="applicant" />
+		<field name="projectLeader" />
+    </grid>
+    
+   	<form name="student-departure-form" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" width="large">
+   	
+   	<panel name="firstPanel" colSpan="12">
+		<field name="definition" colSpan="4"/>
+		<field name="applicant" colSpan="4" form-view="application-line-student-departure-form" />
+		<field name="projectLeader" colSpan="4" />
+		
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="learningAgreement" title="Upload Learning agreement" colSpan="12">
+		<field name="studentLa" widget="binary-link" readonlyIf="isStudentLa"/>
+		<field name="isStudentLa" />
+		<button readonlyIf="isStudentLa" onClick="action-group-student-dep-validation-la" name="confirmLa" title="Confirm LA" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	
+	<panel name="isapStipend" title="Upload Acquisition of ISAP stipend" colSpan="12" showIf="isAdmissionLetter">
+		<field name="stipendAcceptance" widget="binary-link" />
+		<field name="isStipendAcceptance" />
+		<field name="safetyBriefing" widget="binary-link" />
+		<field name="isSafetyBriefing" />
+		<button onClick="action-group-confirm-acquisition" name="confirmAcquisition" title="Confirm Acquisition" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="travelPreparation" title="Upload Travel preparation Documents" colSpan="12" showIf="isAdmissionLetter">
+		<field name="flightBooking" widget="binary-link" />
+		<field name="isFlightBooking" />
+		<field name="visa" widget="binary-link" />
+		<field name="isValidVisa" />
+		<field name="insurance" widget="binary-link" />
+		<field name="isValidInsurance" />
+		<field name="arrivalDateTime" colSpan="4"/>
+		<spacer colSpan="8"/>
+		<button onClick="" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	
+	
+	<panel name="panelSide" sidebar="true" >
+		<field name="userStudent" title="Student User" />
+	</panel>
+	
+	<panel name="approveLearningAgreement" title="(LA) Action From University" colSpan="12" sidebar="true">
+		<field name="signByCoordinator" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<field name="isSignCoordinator" colSpan="6" readonlyIf="!isSignCoordinator"/>
+		
+		<field name="signByHod" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<field name="isSignHod" colSpan="6" readonlyIf="!isSignHod" />
+		
+		<button onClick="action-group-student-dep-validation-la-by-uni" name="confirmLaByUni" title="Confirm LA" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="admissionLetter" title="Admission Letter from Univ." colSpan="12" sidebar="true">
+		<field name="admissionLetter" widget="binary-link" colSpan="6" readonlyIf="isAdmissionLetter"/>
+		<field name="isAdmissionLetter" colSpan="6" readonlyIf="!isAdmissionLetter" />
+		<button onClick="action-group-confirm-admission-letter" name="confirmAdmission" title="Confirm Admission Letter" readonlyIf="isAdmissionLetter"/>
+		<spacer colSpan="12"/>
+	</panel>
+		
+	</form>
+	
+	<action-group name="action-group-student-dep-validation-la">
+		<action name="action-student-dep-validation-la"/>
+		<action name="action-attrs-set-isStudentLa-true"/>
+	</action-group>
+	
+	<action-group name="action-group-student-dep-validation-la-by-uni">
+		<action name="action-student-dep-validation-la-from-uni"/>
+		<action name="action-attrs-set-sign-by-uni-studentLa-true"/>
+	</action-group>
+	
+	<action-group name="action-group-confirm-admission-letter">
+		<action name="action-student-dep-validation-confirm-admission-letter"/>
+		<action name="action-attrs-set-is-admission-letter-true"/>
+	</action-group>
+	
+	<action-group name="action-group-confirm-acquisition">
+		<action name="action-student-dep-validation-confirm-acquisition"/>
+		<action name="action-attrs-set-is-accept-stipend-safety-brifing"/>
+	</action-group>
+	
+	<action-validate name="action-student-dep-validation-la">
+		<error message="Please upload student LA form." if="studentLa == null"/>
+	</action-validate>
+	
+	<action-attrs name="action-attrs-set-isStudentLa-true">
+		<attribute name="value" for="isStudentLa" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-validate name="action-student-dep-validation-la-from-uni">
+		<error message="Please upload Student LA and mark the box Is Valid Student LA." if="studentLa == null || isStudentLa == false"/>
+		<error message="Please upload LA with sign of Head and coordinator." if="signByCoordinator == null || signByHod == null"/>
+	</action-validate>
+	
+	<action-attrs name="action-attrs-set-sign-by-uni-studentLa-true">
+		<attribute name="value" for="isSignCoordinator" expr="eval: true"/>
+		<attribute name="value" for="isSignHod" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-validate name="action-student-dep-validation-confirm-admission-letter">
+		<error message="Please upload admission letter." if="admissionLetter == null"/>
+	</action-validate>
+	
+	<action-attrs name="action-attrs-set-is-admission-letter-true">
+		<attribute name="value" for="isAdmissionLetter" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-validate name="action-student-dep-validation-confirm-acquisition">
+		<error message="Please upload Stipend Acceptance and Safety Briefing HSRW." if="stipendAcceptance == null || safetyBriefing == null"/>
+	</action-validate>
+	
+	<action-attrs name="action-attrs-set-is-accept-stipend-safety-brifing">
+		<attribute name="value" for="isStipendAcceptance" expr="eval: true"/>
+		<attribute name="value" for="isSafetyBriefing" expr="eval: true"/>
+	</action-attrs>
+	
+</object-views>
