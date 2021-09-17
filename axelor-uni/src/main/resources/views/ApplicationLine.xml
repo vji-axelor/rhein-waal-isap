@@ -3,7 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
-    <grid name="application-line-grid" title="Applicants" model="com.axelor.apps.uni.db.ApplicationLine" >
+    <grid name="application-line-grid" title="Applicants" model="com.axelor.apps.uni.db.ApplicationLine" canDelete="false">
+    	<hilite background="primary" if="requestEdit" />
     	<hilite if="applicantSelect == 1" color="primary"/>
     	<hilite if="applicantSelect == 2" color="warning"/>
     	<hilite if="applicantSelect == 3" color="success"/>
@@ -14,24 +15,25 @@
      	<field name="isCvValid" />
      	<field name="isMotivationalLetterValid" />
      	<field name="applicantSelect" />
+     	<field name="requestEdit" hidden="true" />
     </grid>
     
    	<form name="application-line-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="large" onLoad="action-attrs-uni-application-line-show-button">
    	
    	<panel name="firstPanel">
-		<field name="student" canNew="true" />
+		<field name="student" readonly="true"/>
 		<field name="lenguageRequirement" />
 		
-		<field name="transcript" widget="binary-link" />
+		<field name="transcript" widget="binary-link" readonly="true"/>
      	<field name="isTranscriptValid" />
      	
-     	<field name="cvRecord" widget="binary-link" />
+     	<field name="cvRecord" widget="binary-link" readonly="true"/>
      	<field name="isCvValid" />
      	
-     	<field name="motivationLetter" widget="binary-link" />
+     	<field name="motivationLetter" widget="binary-link" readonly="true"/>
      	<field name="isMotivationalLetterValid" />
      	
-     	<field name="description" widget="html"/>
+     	<field name="description" widget="html" readonly="true"/>
      	<field name="uniqueName" hidden="true" />	
      	
 	</panel>
@@ -44,13 +46,27 @@
 		<button onClick="action-attrs-uni-application-line-reject-applicant,save,close" name="rejectApplicant" title="Reject Applicant"/>
 	</panel>	
 		
+	<panel sidebar="true">
+		<static css="label-info" showIf="requestEdit">Student have requested for edit permission.</static>
+		<button onClick="action-application-line-attrs-allow-for-editing,save" name="allowEditBtn" title="Allow for Editting" showIf="requestEdit" prompt="Are you sure you want to give permission to update the document?"/>
+		<static css="label-info" showIf="allowEdit">Student have not update the Application, So please evaluate letter.</static>
+		<field name="requestEdit" hidden="true"/>
+		<field name="allowEdit" hidden="true"/>
+	</panel>
+		
+	<panel-mail>
+    	<mail-messages limit="4" />
+   		<mail-followers />
+ 	</panel-mail>
+	
 	</form>
 	
-	<form name="application-line-student-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="">
+	
+	<form name="application-line-student-form" title="Applicant" canDelete="false" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="" onNew="action-application-line-set-student-user">
    	
-   	<panel name="firstPanel">
+   	<panel name="firstPanel" readonlyIf="applicantSelect > 0">
    		   		
-		<field name="student" canNew="true" canEdit="true" canSelect="false" required="true" />
+		<field name="student" canNew="true" canEdit="true" required="true" domain="self.studentUser = :studentUser" />
 		
 		<field name="definition" form-view="definition-student-form" grid-view="definition-student-grid" domain="self.statusSelect = 2" required="true" />
 		
@@ -65,13 +81,29 @@
 	</panel>
 	
 	<panel sidebar="true">
-		<button onClick="action-application-line-method-set-unique-applicant,save" name="submit" title="Submit"/>
+		<field name="studentUser" readonly="true" canView="false"/>
+		<field name="applicantSelect" readonly="true"/>
+		<button onClick="action-application-line-method-set-unique-applicant,action-application-line-method-allow-edit-false,save" name="submit" hideIf="applicantSelect > 0"  title="Save" prompt="Are you sure you want to submit the application?"/>
 		<field name="uniqueName" hidden="true" />	
 	</panel>
-		
+	
+	<panel sidebar="true" showIf="applicantSelect > 0">
+		<static css="label-info" showIf="requestEdit">You have requested for edit permission.</static>
+		<button onClick="action-application-line-attrs-request-for-edit,save" name="edit" title="Request for Edit" showIf="applicantSelect > 0 &amp;&amp; !requestEdit" prompt="You are sending notification to university for edit permission and write your Issue in below comment section..!"/>
+		<field name="requestEdit" hidden="true"/>
+	</panel>
+	
+	<panel sidebar="true">
+		<static css="" showIf="allowEdit">Please edit your application with click on upper-left corner on pencil icon then click on above save button.</static>
+		<field name="allowEdit" hidden="true"/>
+	</panel>
+	
 	</form>
 	
-	<form name="application-line-student-departure-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="">
+	
+	
+	
+	<form name="application-line-student-departure-form"  title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="mid" canSave="false" onLoad="">
    	
    	<panel name="firstPanel">
    		   		
@@ -117,4 +149,21 @@
 		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="setUniqueApplicant"/>
 	</action-method>
 	
+	<action-attrs name="action-application-line-set-student-user">
+		<attribute name="value" for="studentUser" expr="eval: __user__"/>
+	</action-attrs>
+	
+	<action-attrs name="action-application-line-attrs-request-for-edit">
+		<attribute name="value" for="requestEdit" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-attrs name="action-application-line-attrs-allow-for-editing">
+		<attribute name="value" for="applicantSelect" expr="eval: 0"/>
+		<attribute name="value" for="requestEdit" expr="eval: false"/>
+		<attribute name="value" for="allowEdit" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-attrs name="action-application-line-method-allow-edit-false">
+		<attribute name="value" for="allowEdit" expr="eval: false"/>
+	</action-attrs>
 </object-views>

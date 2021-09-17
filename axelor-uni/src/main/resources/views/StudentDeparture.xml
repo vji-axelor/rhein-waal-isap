@@ -7,11 +7,79 @@
      	<field name="definition"/>
 		<field name="applicant" />
 		<field name="projectLeader" />
+		<field name="statusSelect" />
     </grid>
     
    	<form name="student-departure-form" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" width="large">
    	
    	<panel name="firstPanel" colSpan="12">
+   		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect" />
+   		<spacer colSpan="12"/>
+		<field name="definition" colSpan="4" readonly="true" canView="false"/>
+		<field name="applicant" colSpan="4" form-view="application-line-student-departure-form" readonly="true" canView="false" />
+		<field name="projectLeader" colSpan="4" readonly="true" canView="false"/>
+		
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="learningAgreement" title="Upload Learning agreement" colSpan="12">
+		<field name="studentLa" widget="binary-link" readonlyIf="isStudentLa"/>
+		<field name="isStudentLa" readonly="true"/>
+		<button readonlyIf="isStudentLa" onClick="action-group-student-dep-validation-la,save" prompt="Are you sure you want to confirm LA form?"  name="confirmLa" title="Confirm LA" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="isapStipend" title="Upload Acquisition of ISAP stipend" colSpan="12" showIf="isAdmissionLetter">
+		<field name="stipendAcceptance" widget="binary-link" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing"/>
+		<field name="isStipendAcceptance" readonly="true" />
+		<field name="safetyBriefing" widget="binary-link" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing"/>
+		<field name="isSafetyBriefing" readonly="true" />
+		<button onClick="action-group-confirm-acquisition,save" prompt="Are you sure you want to confirm ISAP Stipend?" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing" name="confirmAcquisition" title="Confirm Acquisition" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="travelPreparation" title="Upload Travel preparation Documents" colSpan="12" showIf="isAdmissionLetter">
+		<field name="flightBooking" widget="binary-link" readonlyIf="isFlightBooking" />
+		<field name="isFlightBooking" readonly="true" />
+		<field name="visa" widget="binary-link" readonlyIf="isValidVisa"/>
+		<field name="isValidVisa" readonly="true" />
+		<field name="insurance" widget="binary-link" readonlyIf="isValidInsurance"/>
+		<field name="isValidInsurance" readonly="true" />
+		<field name="arrivalDateTime" colSpan="4" readonlyIf="isFlightBooking &amp;&amp; isValidVisa &amp;&amp; isValidInsurance"/>
+		<spacer colSpan="8"/>
+		<button onClick="action-group-confirm-travel-documents,save" readonlyIf="isFlightBooking &amp;&amp; isValidVisa &amp;&amp; isValidInsurance" prompt="Are you sure you want to confirm all Travel documents?" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="panelSide" sidebar="true" >
+		<field name="userStudent" title="Student User" readonly="true" canView="false"/>
+	</panel>
+	
+	<panel name="approveLearningAgreement" title="(LA) Action From University" colSpan="12" sidebar="true">
+		<field name="signByCoordinator" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<field name="isSignCoordinator" hidden="true" colSpan="6" readonlyIf="!isSignCoordinator"/>
+		
+		<field name="signByHod" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<field name="isSignHod" hidden="true" colSpan="6" readonlyIf="!isSignHod" />
+		
+		<button onClick="action-group-student-dep-validation-la-by-uni" hidden="true" name="confirmLaByUni" title="Confirm LA" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<spacer colSpan="12"/>
+	</panel>
+	
+	<panel name="admissionLetter" title="Admission Letter from Univ." colSpan="12" sidebar="true">
+		<field name="admissionLetter" widget="binary-link" colSpan="6" readonlyIf="isAdmissionLetter"/>
+		<field name="isAdmissionLetter" colSpan="6" readonlyIf="!isAdmissionLetter" hidden="true" />
+		<button onClick="action-group-confirm-admission-letter" name="confirmAdmission" hidden="true" title="Confirm Admission Letter" readonlyIf="isAdmissionLetter"/>
+		<spacer colSpan="12"/>
+	</panel>
+		
+	</form>
+	
+	<form name="student-departure-leader-form" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" width="large">
+   	
+   	<panel name="firstPanel" colSpan="12">
+   		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect" />
+   		<spacer colSpan="12"/>
 		<field name="definition" colSpan="4"/>
 		<field name="applicant" colSpan="4" form-view="application-line-student-departure-form" />
 		<field name="projectLeader" colSpan="4" />
@@ -22,34 +90,31 @@
 	<panel name="learningAgreement" title="Upload Learning agreement" colSpan="12">
 		<field name="studentLa" widget="binary-link" readonlyIf="isStudentLa"/>
 		<field name="isStudentLa" />
-		<button readonlyIf="isStudentLa" onClick="action-group-student-dep-validation-la" name="confirmLa" title="Confirm LA" colSpan="4"/>
+		<button readonlyIf="isStudentLa" hidden="true" onClick="action-group-student-dep-validation-la" name="confirmLa" title="Confirm LA" colSpan="4"/>
 		<spacer colSpan="12"/>
 	</panel>
 	
-	
 	<panel name="isapStipend" title="Upload Acquisition of ISAP stipend" colSpan="12" showIf="isAdmissionLetter">
-		<field name="stipendAcceptance" widget="binary-link" />
-		<field name="isStipendAcceptance" />
-		<field name="safetyBriefing" widget="binary-link" />
+		<field name="stipendAcceptance" widget="binary-link" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing"/>
+		<field name="isStipendAcceptance"  />
+		<field name="safetyBriefing" widget="binary-link" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing"/>
 		<field name="isSafetyBriefing" />
-		<button onClick="action-group-confirm-acquisition" name="confirmAcquisition" title="Confirm Acquisition" colSpan="4"/>
+		<button onClick="action-group-confirm-acquisition" hidden="true" readonlyIf="isStipendAcceptance &amp;&amp; isSafetyBriefing" name="confirmAcquisition" title="Confirm Acquisition" colSpan="4"/>
 		<spacer colSpan="12"/>
 	</panel>
 	
 	<panel name="travelPreparation" title="Upload Travel preparation Documents" colSpan="12" showIf="isAdmissionLetter">
-		<field name="flightBooking" widget="binary-link" />
+		<field name="flightBooking" widget="binary-link"  readonlyIf="isFlightBooking"/>
 		<field name="isFlightBooking" />
-		<field name="visa" widget="binary-link" />
+		<field name="visa" widget="binary-link" readonlyIf="isValidVisa" />
 		<field name="isValidVisa" />
-		<field name="insurance" widget="binary-link" />
+		<field name="insurance" widget="binary-link"  readonlyIf="isValidInsurance" />
 		<field name="isValidInsurance" />
-		<field name="arrivalDateTime" colSpan="4"/>
+		<field name="arrivalDateTime" colSpan="4" readonlyIf="isFlightBooking &amp;&amp; isValidVisa &amp;&amp; isValidInsurance"/>
 		<spacer colSpan="8"/>
-		<button onClick="" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
+		<button onClick="action-group-confirm-travel-documents"  hidden="true" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
 		<spacer colSpan="12"/>
 	</panel>
-	
-	
 	
 	<panel name="panelSide" sidebar="true" >
 		<field name="userStudent" title="Student User" />
@@ -62,14 +127,14 @@
 		<field name="signByHod" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
 		<field name="isSignHod" colSpan="6" readonlyIf="!isSignHod" />
 		
-		<button onClick="action-group-student-dep-validation-la-by-uni" name="confirmLaByUni" title="Confirm LA" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<button onClick="action-group-student-dep-validation-la-by-uni,save" name="confirmLaByUni" title="Confirm LA" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
 		<spacer colSpan="12"/>
 	</panel>
 	
 	<panel name="admissionLetter" title="Admission Letter from Univ." colSpan="12" sidebar="true">
 		<field name="admissionLetter" widget="binary-link" colSpan="6" readonlyIf="isAdmissionLetter"/>
 		<field name="isAdmissionLetter" colSpan="6" readonlyIf="!isAdmissionLetter" />
-		<button onClick="action-group-confirm-admission-letter" name="confirmAdmission" title="Confirm Admission Letter" readonlyIf="isAdmissionLetter"/>
+		<button onClick="action-group-confirm-admission-letter,save" name="confirmAdmission" title="Confirm Admission Letter" readonlyIf="isAdmissionLetter"/>
 		<spacer colSpan="12"/>
 	</panel>
 		
@@ -95,6 +160,11 @@
 		<action name="action-attrs-set-is-accept-stipend-safety-brifing"/>
 	</action-group>
 	
+	<action-group name="action-group-confirm-travel-documents">
+		<action name="action-student-dep-validation-confirm-travel-documents"/>
+		<action name="action-attrs-set-travel-docs-completed"/>
+	</action-group>
+	
 	<action-validate name="action-student-dep-validation-la">
 		<error message="Please upload student LA form." if="studentLa == null"/>
 	</action-validate>
@@ -111,6 +181,7 @@
 	<action-attrs name="action-attrs-set-sign-by-uni-studentLa-true">
 		<attribute name="value" for="isSignCoordinator" expr="eval: true"/>
 		<attribute name="value" for="isSignHod" expr="eval: true"/>
+		<attribute name="value" for="statusSelect" expr="eval: 2"/>
 	</action-attrs>
 	
 	<action-validate name="action-student-dep-validation-confirm-admission-letter">
@@ -119,6 +190,7 @@
 	
 	<action-attrs name="action-attrs-set-is-admission-letter-true">
 		<attribute name="value" for="isAdmissionLetter" expr="eval: true"/>
+		<attribute name="value" for="statusSelect" expr="eval: 3"/>
 	</action-attrs>
 	
 	<action-validate name="action-student-dep-validation-confirm-acquisition">
@@ -128,6 +200,18 @@
 	<action-attrs name="action-attrs-set-is-accept-stipend-safety-brifing">
 		<attribute name="value" for="isStipendAcceptance" expr="eval: true"/>
 		<attribute name="value" for="isSafetyBriefing" expr="eval: true"/>
+		<attribute name="value" for="statusSelect" expr="eval: 4"/>
+	</action-attrs>
+	
+	<action-validate name="action-student-dep-validation-confirm-travel-documents">
+		<error message="Please upload all travel document and fill arrivale date and time." if="flightBooking == null || visa == null || insurance == null || arrivalDateTime == null"/>
+	</action-validate>
+	
+	<action-attrs name="action-attrs-set-travel-docs-completed">
+		<attribute name="value" for="isFlightBooking" expr="eval: true"/>
+		<attribute name="value" for="isValidVisa" expr="eval: true"/>
+		<attribute name="value" for="isValidInsurance" expr="eval: true"/>
+		<attribute name="value" for="statusSelect" expr="eval: 5"/>
 	</action-attrs>
 	
 </object-views>

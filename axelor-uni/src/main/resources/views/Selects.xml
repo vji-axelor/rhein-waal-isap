@@ -21,4 +21,12 @@
 		<option value="4">Reject Applicant</option>
 	</selection>
 	
+	<selection name="uni.student.departure.status.type.select">
+		<option value="1">Learning Agreement</option>
+		<option value="2">Admission Letter</option>
+		<option value="3">Stipend Acceptance</option>
+		<option value="4">Travel Documents</option>
+		<option value="5">Complete</option>
+	</selection>
+	
 </object-views>

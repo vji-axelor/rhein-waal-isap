@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
 
-	<menuitem name="uni-root" title="Rhein waal" order="-108" if=""
+	<menuitem name="uni-root" title="Rhein waal" order="-109" if=""
 		icon="fa-university" icon-background="#2fa042"/>
 	<menuitem name="uni-root-university" parent="uni-root"
 		title="Universities" action="uni.root.university" order="1"/>
@@ -55,11 +55,11 @@
 	</action-view>
 	<!-- ================================================================================== -->
 	
-	<menuitem name="isap-process-root" title="ISAP Process" order="-108" if=""
-		icon="" icon-background="#2fa042"/>
+	<menuitem name="isap-process-root" title="ISAP Process" order="-109" if=""
+		icon="fa-graduation-cap" icon-background="#2fa042"/>
 	
 	<menuitem name="outgoing-root" title="Outgoing" order="-108" if="" parent="isap-process-root"
-		icon="" icon-background="#2fa042"/>
+		icon="fa-list-alt" icon-background="#2fa042"/>
 		
 	<menuitem name="uni-outgoing-definition.publish" parent="outgoing-root"
 		title="ISAP Definition" action="uni.outgoing.isap.definition.publish" order="2"/>
@@ -99,6 +99,20 @@
 		<view type="form" name="definition-form"/>
 		<domain>self.statusSelect = 4 OR self.statusSelect = 5</domain>
 	</action-view>
+	
+	
+	<menuitem name="outgoing-student-departure-root" title="Student Departure" order="" if="" parent="isap-process-root"
+		icon="fa-plane" icon-background="#2fa042"/>
+	
+	<menuitem name="outgoing-student-departure-uni" parent="outgoing-student-departure-root"
+		title="Student Departure" action="uni.student.departure.leader" order="5"/>
+
+	<action-view name="uni.student.departure.leader" title="Student Departure"
+		model="com.axelor.apps.uni.db.StudentDeparture" >
+		<view type="grid" name="student-departure-grid"/>
+		<view type="form" name="student-departure-leader-form"/>
+	</action-view>
+	
 	<!-- ================================================================================================== -->
 	
 	
@@ -110,7 +124,9 @@
 
 	<action-view name="uni.outgoing.student.application" title="Student Application"
 		model="com.axelor.apps.uni.db.ApplicationLine" >
+		<view type="grid" name="application-line-grid"/>
 		<view type="form" name="application-line-student-form"/>
+		<domain>self.studentUser = :__user__</domain>
 	</action-view>
 	
 	
@@ -162,7 +178,7 @@
 	
 	<!-- ================================================================================================== -->
 	
-	<menuitem name="student-departure-root" title="Student Departure" order="-108" if=""
+	<menuitem name="student-departure-root" title="Student" order="-108" if=""
 		icon="fa-plane" icon-background="#2fa09e"/>
 		
 	<menuitem name="student-departure" parent="student-departure-root"
@@ -172,6 +188,7 @@
 		model="com.axelor.apps.uni.db.StudentDeparture" >
 		<view type="grid" name="student-departure-grid"/>
 		<view type="form" name="student-departure-form"/>
+		<domain>self.userStudent = :__user__</domain>
 	</action-view>
 	
 	

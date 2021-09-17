@@ -7,6 +7,8 @@
 
   <entity name="StudentDeparture" lang="java">
   
+  <integer name="statusSelect" title="Status" selection="uni.student.departure.status.type.select" default="1" />
+  
    <many-to-one name="userStudent"  ref="com.axelor.auth.db.User" title="User Student" />
    <many-to-one name="definition"  ref="com.axelor.apps.uni.db.Definition" title="Definition" />
    <many-to-one name="applicant"  ref="com.axelor.apps.uni.db.ApplicationLine" title="Applicant" />

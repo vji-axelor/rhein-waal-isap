@@ -20,6 +20,10 @@
 
 	<integer name="applicantSelect" title="Status" selection="uni.applicant.selection.status.type.select" />
 	<many-to-one ref="com.axelor.apps.uni.db.Definition" name="definition" />
+	<many-to-one name="studentUser" ref="com.axelor.auth.db.User" title="Student User" />
+	<boolean name="requestEdit" title="Is request for edit" />
+	<boolean name="allowEdit" title="Is Allow for Edit" />
+	
   </entity>
 
 </domain-models>

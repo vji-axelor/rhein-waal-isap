@@ -7,27 +7,28 @@
      	<field name="matriculationNumber" title="Matriculation Number" />
 		<field name="name" title="Name"  />
 		<field name="phone" />
-		<field name="email" />
+		<field name="emailAddress" />
 		<field name="university" />
     </grid>
     
-   	<form name="student-form" title="Students" model="com.axelor.apps.uni.db.Student" width="mid">
+   	<form name="student-form" title="Students" model="com.axelor.apps.uni.db.Student" width="mid" onNew="action-student-attrs-set-student-user">
    	
-   	<panel name="firstPanel" colSpan="12">
-			<field name="matriculationNumber" title="Matriculation Number" />
-			<field name="name" title="Name" />
-			<field name="phone" />
-			<field name="email" />
-			<field name="emailAddress" canSelect="false" canNew="true"/>
-			<field name="university" />
-	</panel>
-		
-	<panel name="sidePanel" sidebar="true" >
-		<field name="createdOn" />
-		<field name="updatedOn" />
-		<field name="createdBy" />
-		<field name="updatedBy" />
-	</panel>
-		
+	   	<panel name="firstPanel" colSpan="12">
+				<field name="matriculationNumber" title="Matriculation Number" />
+				<field name="name" title="Name" />
+				<field name="phone" />
+				<field name="emailAddress" canSelect="false" canNew="true"/>
+				<field name="university" />
+				<field name="email" hidden="true"/>
+		</panel>
+			
+		<panel name="sidePanel" sidebar="true" >
+			<field name="studentUser" readonly="true" canView="false"/>
+		</panel>
 	</form>
+	
+	<action-attrs name="action-student-attrs-set-student-user">
+		<attribute name="value" for="studentUser" expr="eval: __user__"/>
+		<attribute name="value" for="matriculationNumber" expr="eval: __user__.code"/>
+	</action-attrs>
 </object-views>
