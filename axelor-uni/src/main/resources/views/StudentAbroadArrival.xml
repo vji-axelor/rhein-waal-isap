@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+    
+    <grid name="student-abroad-arrival-grid" title="Student Abroad Arrival" model="com.axelor.apps.uni.db.StudentAbroadArrival" >
+		<field name="userStudent" />
+    </grid>
+    
+   	<form name="student-abroad-arrival-form" title="Student Abroad Arrival" model="com.axelor.apps.uni.db.StudentAbroadArrival" width="large" onNew="action-student-return-attrs-set-student-user">
+   	
+	   	<panel name="firstPanel">
+	   		<field name="coordinatore" />
+	   		<field name="coordinatoreEmail" />
+	   		<field name="hostUniversity" />
+	   		<field name="hostCountry" />
+	   		<field name="startDate" />
+	   		<field name="endDate" />
+	   		<spacer colSpan="12"/>
+			<spacer colSpan="12"/>
+		</panel>
+			
+		<panel-tabs>
+			<panel name="lenguageCoursePanel" title="Lenguage Course">
+				<field name="instructorName" />
+				<field name="instructorEmail" />
+				<field name="lenguageCourse" />
+				<field name="lenguageDocument" widget="binary-link" />
+			</panel>
+			
+			<panel name="changeOfLaPanel" title="Eventual change of LA">
+				<field name="changeInLa" />
+				<spacer colSpan="6"/>
+				<spacer colSpan="12"/>
+				<field name="changeLaForm" />
+				<spacer colSpan="6"/>
+				<spacer colSpan="12"/>
+				<field name="descriptionLaChange" colSpan="12" widget="html"/>
+			</panel>
+			
+			<panel name="extendStayPanel" title="Extension of Stay">
+				<field name="extensionStay" />
+				<spacer colSpan="6"/>
+				<field name="extensionDescription" requiredIf="extensionStay" colSpan="12" widget="html"/>
+			</panel>
+		</panel-tabs>
+			
+		<panel name="sidePanel" sidebar="true" >
+			<field name="userStudent" readonly="true" canView="false"/>
+		</panel>
+	</form>
+	
+	<action-attrs name="action-student-return-attrs-set-student-user">
+		<attribute name="value" for="userStudent" expr="eval: __user__"/>
+	</action-attrs>
+</object-views>

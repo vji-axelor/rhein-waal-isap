@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+    
+    <grid name="student-return-grid" title="Student return" model="com.axelor.apps.uni.db.StudentReturn" >
+		<field name="userStudent" />
+    </grid>
+    
+   	<form name="student-return-form" title="Student return" model="com.axelor.apps.uni.db.StudentReturn" width="large" onNew="action-student-return-attrs-set-student-user">
+   	
+	   	<panel name="firstPanel" colSpan="12">
+			<field name="examResult" widget="binary-link" />
+			<field name="report" widget="binary-link" />
+			<spacer colSpan="12"/>
+			<field name="feedbackQueOne" required="true" title="(A) How did the semester abroad improve your future career" colSpan="12" widget="html"/>
+			<spacer colSpan="12"/>
+			<field name="feedbackQueTwo" required="true" title="(B) In what way have the previous semesters at the HSRW prepare the student for the exchange" colSpan="12" widget="html"/>
+			 
+		</panel>
+			
+		<panel name="sidePanel" sidebar="true" >
+			<field name="userStudent" readonly="true" canView="false"/>
+		</panel>
+	</form>
+	
+	<action-attrs name="action-student-return-attrs-set-student-user">
+		<attribute name="value" for="userStudent" expr="eval: __user__"/>
+	</action-attrs>
+</object-views>

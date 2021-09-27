@@ -191,5 +191,25 @@
 		<domain>self.userStudent = :__user__</domain>
 	</action-view>
 	
+	<menuitem name="student-abroad-arrive" parent="student-departure-root"
+	title="Student Abroad Arrival" action="uni.student.abroad.arrive" order="4"/>
+
+	<action-view name="uni.student.abroad.arrive" title="Student Abroad Arrival"
+		model="com.axelor.apps.uni.db.StudentAbroadArrival" >
+		<view type="grid" name="student-abroad-arrival-grid"/>
+		<view type="form" name="student-abroad-arrival-form"/>
+		<domain>self.userStudent = :__user__</domain>
+	</action-view>
+	
+	<menuitem name="student-return" parent="student-departure-root"
+		title="Student Return" action="uni.student.return" order="6"/>
+
+	<action-view name="uni.student.return" title="Student Return"
+		model="com.axelor.apps.uni.db.StudentReturn" >
+		<view type="grid" name="student-return-grid"/>
+		<view type="form" name="student-return-form"/>
+		<domain>self.userStudent = :__user__</domain>
+	</action-view>
+	
 	
 </object-views>

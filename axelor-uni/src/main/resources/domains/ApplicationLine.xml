@@ -24,6 +24,14 @@
 	<boolean name="requestEdit" title="Is request for edit" />
 	<boolean name="allowEdit" title="Is Allow for Edit" />
 	
+	<datetime name="interviewDate" title="Interviwe Date/Time" />
+	<string name="interviewLink" title="InterviewLink"/>
+	<boolean name="isInterviewSelect" title="Selected In Interview" />
+	
+	
+	<boolean name="isAccepted" title="Offer Accepted" />
+	<boolean name="isRejected" title="Offer Rejected" />
+	
   </entity>
 
 </domain-models>

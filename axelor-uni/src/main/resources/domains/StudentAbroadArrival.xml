@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="uni" package="com.axelor.apps.uni.db"/>
+
+  <entity name="StudentAbroadArrival" lang="java">
+	<many-to-one name="userStudent"  ref="com.axelor.auth.db.User" title="User Student" />
+  	<string name="coordinatore" title="Coordinatore/Head"/>
+  	<string name="coordinatoreEmail" title="Coordinatore Email"/>
+  	<string name="hostCountry" title="Host Country"/>
+  	<string name="hostUniversity" title="Host University"/>
+  	<date name="startDate" title="Course Start Date"/>
+  	<date name="endDate" title="Course End Date" />
+  	
+	<string name="instructorName" title="Instructor Name"/>
+  	<string name="instructorEmail" title="Instructor Email" />
+  	<string name="lenguageCourse" title="Name of Language"/>
+  	<many-to-one name="lenguageDocument" ref="com.axelor.meta.db.MetaFile" title="Lenguage Document" />
+  	
+  	<boolean name="changeInLa" title="Eventual change of LA" />
+  	<many-to-one name="changeLaForm" ref="com.axelor.meta.db.MetaFile" title="Upload updated LA form" />
+  	<string name="descriptionLaChange" large="true" title="Why you want to change"/>
+  
+  	<boolean name="extensionStay" title="Extension of Stay" />
+  	<string name="extensionDescription" large="true" title="Extension Description"/>	
+  </entity>
+
+</domain-models>

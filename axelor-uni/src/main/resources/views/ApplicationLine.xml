@@ -4,21 +4,30 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
     <grid name="application-line-grid" title="Applicants" model="com.axelor.apps.uni.db.ApplicationLine" canDelete="false">
+    	
     	<hilite background="primary" if="requestEdit" />
+    	<hilite if="isAccepted" background="success"/>
+    	<hilite if="isRejected" background="danger"/>
+    	
     	<hilite if="applicantSelect == 1" color="primary"/>
     	<hilite if="applicantSelect == 2" color="warning"/>
     	<hilite if="applicantSelect == 3" color="success"/>
     	<hilite if="applicantSelect == 4" color="danger"/>
+     	
      	<field name="student" />
      	<field name="lenguageRequirement" />
      	<field name="isTranscriptValid" />
      	<field name="isCvValid" />
      	<field name="isMotivationalLetterValid" />
      	<field name="applicantSelect" />
+     	<field name="interviewDate" />
      	<field name="requestEdit" hidden="true" />
+     	<field name="isRejected" hidden="true" />
+     	<field name="isAccepted" hidden="true" />
+     	<field name="isInterviewSelect" hidden="true"/>
     </grid>
     
-   	<form name="application-line-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="large" onLoad="action-attrs-uni-application-line-show-button">
+   	<form name="application-line-form" title="Applicant" model="com.axelor.apps.uni.db.ApplicationLine" width="large" onLoad="">
    	
    	<panel name="firstPanel">
 		<field name="student" readonly="true"/>
@@ -40,10 +49,10 @@
 		
 	<panel sidebar="true">
 		<field name="applicantSelect" />
-		<button onClick="action-attrs-uni-application-line-initial-selection,save,close" name="initialSelection" title="Initial selection" />
-		<button showIf="id and __parent__.statusSelect == 2" onClick="action-attrs-uni-application-line-interview,save,close" name="interview" title="Interview"/>
-		<button showIf="id and __parent__.statusSelect == 2" onClick="action-attrs-uni-application-line-select-applicant,save,close" name="selectApplicant" title="Select Applicant"/>
-		<button onClick="action-attrs-uni-application-line-reject-applicant,save,close" name="rejectApplicant" title="Reject Applicant"/>
+		<button name="initialSelection" title="Initial selection" prompt="Are you sure you want to make initial selection state?" onClick="action-attrs-uni-application-line-initial-selection,save,close"  />
+		<button name="interview" title="Interview" prompt="Are you sure you want to arrenge the interview?" onClick="action-method-uni-application-line-send-interview-email,action-attrs-uni-application-line-interview,save,close" />
+		<button name="selectApplicant" title="Select Applicant" prompt="Are you sure you want to finally select an applicant??" onClick="action-application-line-method-select-applicant-notification,action-attrs-uni-application-line-select-applicant,save,close" />
+		<button name="rejectApplicant" title="Reject Applicant" prompt="Are you sure you want to reject an applicant??" onClick="action-attrs-uni-application-line-reject-applicant,save,close" />
 	</panel>	
 		
 	<panel sidebar="true">
@@ -52,6 +61,17 @@
 		<static css="label-info" showIf="allowEdit">Student have not update the Application, So please evaluate letter.</static>
 		<field name="requestEdit" hidden="true"/>
 		<field name="allowEdit" hidden="true"/>
+	</panel>
+	
+	<panel name="interviewPanel" sidebar="true" title="Interview Details" collapseIf="true">
+		<field name="interviewDate" />
+		<field name="interviewLink" />
+		<field name="isInterviewSelect" showIf="applicantSelect >= 2"/>
+	</panel>
+		
+	<panel sidebar="true" showIf="applicantSelect == 3">
+		<field name="isAccepted" showIf="isAccepted" />
+		<field name="isRejected" showIf="isRejected" css="lebal-danger" />
 	</panel>
 		
 	<panel-mail>
@@ -87,15 +107,28 @@
 		<field name="uniqueName" hidden="true" />	
 	</panel>
 	
-	<panel sidebar="true" showIf="applicantSelect > 0">
+	<panel sidebar="true" hideIf="applicantSelect == 3 &amp;&amp; applicantSelect > 0">
 		<static css="label-info" showIf="requestEdit">You have requested for edit permission.</static>
-		<button onClick="action-application-line-attrs-request-for-edit,save" name="edit" title="Request for Edit" showIf="applicantSelect > 0 &amp;&amp; !requestEdit" prompt="You are sending notification to university for edit permission and write your Issue in below comment section..!"/>
+		<button onClick="action-application-line-attrs-request-for-edit,save" name="edit" title="Request for Edit" showIf="applicantSelect > 0 &amp;&amp; !requestEdit" prompt="You are sending notification to university for edit permission?"/>
 		<field name="requestEdit" hidden="true"/>
 	</panel>
 	
 	<panel sidebar="true">
 		<static css="" showIf="allowEdit">Please edit your application with click on upper-left corner on pencil icon then click on above save button.</static>
 		<field name="allowEdit" hidden="true"/>
+	</panel>
+	
+	<panel name="interviewPanel" sidebar="true" showIf="applicantSelect == 2 || applicantSelect ==3" title="Interview Details">
+		<field name="interviewDate" readonly="true"/>
+		<field name="interviewLink" readonly="true"/>
+		<field name="isInterviewSelect" hidden="true"/>
+	</panel>
+	
+	<panel sidebar="true" showIf="applicantSelect == 3">
+		<button name="acceptOffer" title="Accept Offer" hideIf="isAccepted || isRejected" onClick="action-application-line-method-accept-notification,action-application-line-attrs-accept-offer,save" prompt="Are you sure you want to accept the Offer for student exchange program?"/>		
+		<button name="rejecttOffer" title="Reject Offer" hideIf="isAccepted || isRejected" onClick="action-application-line-method-reject-notification,action-application-line-attrs-reject-offer,save" prompt="Are you sure you want to Reject the Offer for student exchange program?"/>		
+		<field name="isAccepted" showIf="isAccepted" readonly="true"/>
+		<field name="isRejected" showIf="isRejected" readonly="true" css="danger" />
 	</panel>
 	
 	</form>
@@ -139,6 +172,7 @@
 		<attribute name="value" for="applicantSelect" expr="eval: 4"/>
 	</action-attrs>
 	
+	
 	<action-attrs name="action-attrs-uni-application-line-show-button">
 		<attribute name="hidden" for="initialSelection" expr="__parent__.statusSelect != 2"/>
 		<attribute name="hidden" for="interview" expr="__parent__.statusSelect == 2"/>
@@ -166,4 +200,31 @@
 	<action-attrs name="action-application-line-method-allow-edit-false">
 		<attribute name="value" for="allowEdit" expr="eval: false"/>
 	</action-attrs>
+	
+	<action-attrs name="action-application-line-attrs-accept-offer">
+		<attribute name="value" for="isAccepted" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-attrs name="action-application-line-attrs-reject-offer">
+		<attribute name="value" for="isRejected" expr="eval: true"/>
+	</action-attrs>
+	
+	<action-method name="action-method-uni-application-line-send-interview-email">
+		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="sendInterviewEmail"/>
+	</action-method>
+	
+	<action-method name="action-application-line-method-select-applicant-notification">
+		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="sendSelectionEmail"/>
+	</action-method>
+	
+	<action-method name="action-application-line-method-accept-notification">
+		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="sendAcceptEmail"/>
+	</action-method>
+	
+	<action-method name="action-application-line-method-reject-notification">
+		<call class="com.axelor.apps.uni.web.ApplicationLineController" method="sendRejectEmail"/>
+	</action-method>
+	
+
+	
 </object-views>

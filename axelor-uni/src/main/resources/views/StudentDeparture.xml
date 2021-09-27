@@ -114,6 +114,7 @@
 		<spacer colSpan="8"/>
 		<button onClick="action-group-confirm-travel-documents"  hidden="true" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
 		<spacer colSpan="12"/>
+		<button onClick="action-student-dep-accept-doc-email-notification,save" title="Accept document" name="acceptDocument" prompt="You are sending all document aceptance email to student...!"/>
 	</panel>
 	
 	<panel name="panelSide" sidebar="true" >
@@ -213,5 +214,9 @@
 		<attribute name="value" for="isValidInsurance" expr="eval: true"/>
 		<attribute name="value" for="statusSelect" expr="eval: 5"/>
 	</action-attrs>
+	
+	<action-method name="action-student-dep-accept-doc-email-notification">
+		<call class="com.axelor.apps.uni.web.StudentDepartureController" method="acceptDocumentNotify"/>
+	</action-method>
 	
 </object-views>

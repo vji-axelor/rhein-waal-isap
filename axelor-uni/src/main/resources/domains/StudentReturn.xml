@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="uni" package="com.axelor.apps.uni.db"/>
+
+  <entity name="StudentReturn" lang="java">
+  
+  	<many-to-one name="userStudent"  ref="com.axelor.auth.db.User" title="User Student" />
+  	<many-to-one name="examResult" ref="com.axelor.meta.db.MetaFile" title="Evidence of Passing Exams" />
+  	<many-to-one name="report" ref="com.axelor.meta.db.MetaFile" title="Report" />
+	<string name="feedbackQueOne" large="true" title="Feedback Question 1"/>
+	<string name="feedbackQueTwo" large="true" title="Feedback Question 2"/>
+  </entity>
+
+</domain-models>

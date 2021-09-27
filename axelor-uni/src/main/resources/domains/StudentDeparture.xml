@@ -31,9 +31,9 @@
    <boolean name="isSafetyBriefing" title="Is Safety Briefing"/>  
    
     <many-to-one name="flightBooking" ref="com.axelor.meta.db.MetaFile" title="Flight Booking" />
-   <boolean name="isFlightBooking" title="Is Valid Visa"/>  
+   <boolean name="isFlightBooking" title="Is Flight Ticket"/>  
     <many-to-one name="visa" ref="com.axelor.meta.db.MetaFile" title="Valid Visa" />
-   <boolean name="isValidVisa" title="Is Sign By Dep. Head"/>  
+   <boolean name="isValidVisa" title="Is Valid Visa"/>  
     <many-to-one name="insurance" ref="com.axelor.meta.db.MetaFile" title="Insurance (DAAD)" />
    <boolean name="isValidInsurance" title="Is Valid Insurance"/>  
 	<datetime name="arrivalDateTime" title="Arrival Date And Time" />   

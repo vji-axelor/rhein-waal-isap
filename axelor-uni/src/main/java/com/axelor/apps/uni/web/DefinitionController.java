@@ -16,4 +16,9 @@ public class DefinitionController {
       response.setError(e.toString());
     }
   }
+
+  public void createStudentDeparture(ActionRequest request, ActionResponse response) {
+    Definition definition = request.getContext().asType(Definition.class);
+    Beans.get(DefinitionService.class).setupStuDeparture(definition);
+  }
 }

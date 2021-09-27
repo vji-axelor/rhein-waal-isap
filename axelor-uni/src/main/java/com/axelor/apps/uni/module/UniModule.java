@@ -22,6 +22,8 @@ import com.axelor.apps.uni.service.ApplicationLineService;
 import com.axelor.apps.uni.service.ApplicationLineServiceImpl;
 import com.axelor.apps.uni.service.DefinitionService;
 import com.axelor.apps.uni.service.DefinitionServiceImpl;
+import com.axelor.apps.uni.service.StudentDepartureService;
+import com.axelor.apps.uni.service.StudentDepartureServiceImpl;
 
 public class UniModule extends AxelorModule {
 
@@ -29,5 +31,6 @@ public class UniModule extends AxelorModule {
   protected void configure() {
     bind(DefinitionService.class).to(DefinitionServiceImpl.class);
     bind(ApplicationLineService.class).to(ApplicationLineServiceImpl.class);
+    bind(StudentDepartureService.class).to(StudentDepartureServiceImpl.class);
   }
 }
