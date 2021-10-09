@@ -3,16 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
-    <grid name="definition-grid" title="Definitions" model="com.axelor.apps.uni.db.Definition" >
+    <grid name="definition-grid" title="Definitions" model="com.axelor.apps.uni.db.Definition" canDelete="false" canArchive="false" >
      	<hilite if="statusSelect == 4" color="success"/>
     	<hilite if="statusSelect == 5" color="danger"/>
      	<field name="topic" />
      	<field name="statusSelect" />
+     	<field name="applicationDeadline" />
+		<field name="semesterYear" />
     </grid>
     
     <grid name="definition-student-grid" title="Definitions" model="com.axelor.apps.uni.db.Definition" canNew="false" canDelete="false" canArchive="false" canEdit="false" >
      	<field name="topic" />
      	<field name="statusSelect" />
+     	<field name="applicationDeadline" />
+		<field name="semesterYear" />
     </grid>
     
     
@@ -26,7 +30,9 @@
 		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
 		<field name="topic" css="label-bold bold large" colSpan="6" readonlyIf="statusSelect &gt; 1" />
 		<field name="projectLeader" colSpan="3" canView="true" readonly="true"/>
-		<button onClick="action-definition-method-start-setup-student-departure" name="startDepartureProcess" title="Start Departure Process" colSpan="3" prompt="Are you realy want to start Departure process for selected student?"/>
+		<button onClick="action-definition-method-start-setup-student-departure" name="startDepartureProcess" title="Start Departure Process" colSpan="3" showIf="statusSelect == 4 || statusSelect == 5" prompt="Are you realy want to start Departure process for selected student?"/>
+		<field name="applicationDeadline" colSpan="6" readonly="true"/>
+		<field name="semesterYear" colSpan="6" readonly="true"/>
      	<spacer colSpan="12"/>
      	<field name="projectDescription" readonlyIf="statusSelect &gt; 1" />
      	<spacer colSpan="12"/>
@@ -48,7 +54,11 @@
 	
 	<panel-related onChange="save" field="applicanStudents" showIf="statusSelect &gt; 1" readonlyIf="statusSelect &gt; 3" form-view="application-line-form" grid-view="application-line-grid" />	
 	
-	
+	<panel-mail>
+    	<mail-messages limit="4" />
+   		<mail-followers />
+ 	</panel-mail>
+ 	
 	</form>
 	
 	
@@ -58,6 +68,9 @@
 		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect" readonly="true"/>
 		<field name="topic" css="label-bold bold large" colSpan="6"  readonly="true" />
      	<field name="projectLeader" colSpan="6" canView="true" readonly="true"/>
+     	<spacer colSpan="12"/>
+     	<field name="applicationDeadline" colSpan="6" readonly="true"/>
+		<field name="semesterYear" colSpan="6" readonly="true"/>
      	<spacer colSpan="12"/>
      	<field name="projectDescription"  readonly="true"/>
      	<spacer colSpan="12"/>
@@ -73,6 +86,9 @@
 			<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
 			<field name="topic" css="label-bold bold large" colSpan="6"/>
 			<field name="projectLeader" colSpan="6" canNew="true"/>
+			<spacer colSpan="12"/>	
+			<field name="applicationDeadline" colSpan="6" />
+			<field name="semesterYear" colSpan="6" />
 	     	<spacer colSpan="12"/>
 	     	<field name="projectDescription" />
 	     	<spacer colSpan="12"/>

@@ -55,10 +55,10 @@
 	</action-view>
 	<!-- ================================================================================== -->
 	
-	<menuitem name="isap-process-root" title="ISAP Process" order="-109" if=""
+	<menuitem name="isap-process-root" title="Outgoing ISAP Process" order="-109" if=""
 		icon="fa-graduation-cap" icon-background="#2fa042"/>
 	
-	<menuitem name="outgoing-root" title="Outgoing" order="-108" if="" parent="isap-process-root"
+	<menuitem name="outgoing-root" title="Student Selection" order="-108" if="" parent="isap-process-root"
 		icon="fa-list-alt" icon-background="#2fa042"/>
 		
 	<menuitem name="uni-outgoing-definition.publish" parent="outgoing-root"
@@ -101,7 +101,7 @@
 	</action-view>
 	
 	
-	<menuitem name="outgoing-student-departure-root" title="Student Departure" order="" if="" parent="isap-process-root"
+	<menuitem name="outgoing-student-departure-root" title="Student Departure" order="6" if="" parent="isap-process-root"
 		icon="fa-plane" icon-background="#2fa042"/>
 	
 	<menuitem name="outgoing-student-departure-uni" parent="outgoing-student-departure-root"
@@ -109,8 +109,32 @@
 
 	<action-view name="uni.student.departure.leader" title="Student Departure"
 		model="com.axelor.apps.uni.db.StudentDeparture" >
-		<view type="grid" name="student-departure-grid"/>
+		<view type="grid" name="student-departure-leader-grid"/>
 		<view type="form" name="student-departure-leader-form"/>
+	</action-view>
+	
+	<menuitem name="outgoing-student-abroad-arrival-leader-root" title="Student Abroad Arrival" order="8" if="" parent="isap-process-root"
+		icon="fa-location-arrow" icon-background="#2fa042"/>
+	
+	<menuitem name="outgoing-student-abroad-arrival-leadre-uni" parent="outgoing-student-abroad-arrival-leader-root"
+		title="Student Abroad Arrival" action="uni.student.abroad.arrival.leader" order="1"/>
+
+	<action-view name="uni.student.abroad.arrival.leader" title="Student Abroad Arrival"
+		model="com.axelor.apps.uni.db.StudentAbroadArrival" >
+		<view type="grid" name="student-abroad-arrival-grid"/>
+		<view type="form" name="student-abroad-arrival-form"/>
+	</action-view>
+	
+	<menuitem name="outgoing-student-return-leader-root" title="Student Return" order="10" if="" parent="isap-process-root"
+		icon="fa-arrow-left" icon-background="#2fa042"/>
+	
+	<menuitem name="outgoing-student-return-leader-uni" parent="outgoing-student-return-leader-root"
+		title="Student Return" action="uni.student.return.leader" order="1"/>
+
+	<action-view name="uni.student.return.leader" title="Student Return"
+		model="com.axelor.apps.uni.db.StudentReturn" >
+		<view type="grid" name="student-return-grid"/>
+		<view type="form" name="student-return-form"/>
 	</action-view>
 	
 	<!-- ================================================================================================== -->
@@ -137,8 +161,9 @@
 		model="com.axelor.apps.uni.db.Definition" >
 		<view type="grid" name="definition-student-grid"/>
 		<view type="form" name="definition-student-form"/>
-		<domain>self.statusSelect = 2</domain>
+		<domain>self.statusSelect = 2 AND self.applicationDeadline &gt;= current_date</domain>
 	</action-view>
+	
 	
 	<!-- ================================================================================================== -->
 	
@@ -178,7 +203,7 @@
 	
 	<!-- ================================================================================================== -->
 	
-	<menuitem name="student-departure-root" title="Student" order="-108" if=""
+	<menuitem name="student-departure-root" title="Outgoing Student" order="-108" if=""
 		icon="fa-plane" icon-background="#2fa09e"/>
 		
 	<menuitem name="student-departure" parent="student-departure-root"
@@ -211,5 +236,20 @@
 		<domain>self.userStudent = :__user__</domain>
 	</action-view>
 	
+	<!-- ================================================================================================== -->
+	
+	<menuitem name="student-departure-international-office-root" title="International Office" order="-108" if=""
+		icon="fa-plane" icon-background="#2fa09e"/>
+		
+	<menuitem name="student-international-office-departure" parent="student-departure-international-office-root"
+		title="Student Departure" action="uni.student.departure.international.office" order="3"/>
+
+	<action-view name="uni.student.departure.international.office" title="Student Departure"
+		model="com.axelor.apps.uni.db.StudentDeparture" >
+		<view type="grid" name="student-departure-leader-grid"/>
+		<view type="form" name="student-departure-leader-form"/>
+	</action-view>
+	
+
 	
 </object-views>

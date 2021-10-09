@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
-    <grid name="application-line-grid" title="Applicants" model="com.axelor.apps.uni.db.ApplicationLine" canDelete="false">
+    <grid name="application-line-grid" title="Applicants" model="com.axelor.apps.uni.db.ApplicationLine" canDelete="false" canArchive="false">
     	
     	<hilite background="primary" if="requestEdit" />
     	<hilite if="isAccepted" background="success"/>
@@ -88,7 +88,7 @@
    		   		
 		<field name="student" canNew="true" canEdit="true" required="true" domain="self.studentUser = :studentUser" />
 		
-		<field name="definition" form-view="definition-student-form" grid-view="definition-student-grid" domain="self.statusSelect = 2" required="true" />
+		<field name="definition" form-view="definition-student-form" grid-view="definition-student-grid" domain="self.statusSelect = 2 and  self.applicationDeadline &gt;= CURRENT_DATE" required="true" />
 		
 		<field name="transcript" widget="binary-link" required="true" />
      	

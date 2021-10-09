@@ -36,4 +36,10 @@ public class StudentDepartureController {
     Beans.get(StudentDepartureService.class).acceptDocEmail(studentDeparture);
     response.setValue("statusSelect", 5);
   }
+  
+  public void startAbroadArrivalProcess(ActionRequest request, ActionResponse response) {
+	  StudentDeparture studentDeparture = request.getContext().asType(StudentDeparture.class);
+	  Beans.get(StudentDepartureService.class).createAbroadArrival(studentDeparture);
+	  
+  }
 }

@@ -12,6 +12,8 @@
   	<string name="requirement" title="Requirement of Applicant" large="true" />
     <integer name="statusSelect" title="Status" selection="uni.definition.status.type.select" default="1" />
     <many-to-one name="projectLeader" ref="com.axelor.apps.uni.db.Professor" title="Project Leader" />
+    <date name="applicationDeadline" title="Application Deadline"/>
+    <string name="semesterYear" title="Semester/Year"/>
     
     <one-to-many ref="com.axelor.apps.uni.db.ApplicationLine" name="applicanStudents" mappedBy="definition" title="Applicants"/>
   </entity>

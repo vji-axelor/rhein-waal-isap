@@ -5,7 +5,9 @@ import com.axelor.apps.message.db.Message;
 import com.axelor.apps.message.db.repo.EmailAccountRepository;
 import com.axelor.apps.message.db.repo.MessageRepository;
 import com.axelor.apps.message.service.MessageService;
+import com.axelor.apps.uni.db.StudentAbroadArrival;
 import com.axelor.apps.uni.db.StudentDeparture;
+import com.axelor.apps.uni.db.repo.StudentAbroadArrivalRepository;
 import com.axelor.auth.AuthUtils;
 import com.axelor.exception.AxelorException;
 import com.axelor.inject.Beans;
@@ -51,4 +53,25 @@ public class StudentDepartureServiceImpl implements StudentDepartureService {
       e.printStackTrace();
     }
   }
+
+	@Override
+	@Transactional
+	public void createAbroadArrival(StudentDeparture studentDeparture) {
+		StudentAbroadArrival abroadArrival = new StudentAbroadArrival();
+
+		if(studentDeparture.getProjectLeader() != null) {
+			abroadArrival.setProjectLeader(studentDeparture.getProjectLeader());
+		}
+		if(studentDeparture.getApplicant() != null) {
+			abroadArrival.setApplicant(studentDeparture.getApplicant());
+		}
+		if(studentDeparture.getUserStudent() != null) {
+			abroadArrival.setUserStudent(studentDeparture.getUserStudent());
+		}
+		if(studentDeparture.getDefinition() != null) {
+			abroadArrival.setDefinition(studentDeparture.getDefinition());
+		}
+		
+		Beans.get(StudentAbroadArrivalRepository.class).save(abroadArrival);
+	}
 }

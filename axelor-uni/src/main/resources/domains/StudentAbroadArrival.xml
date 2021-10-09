@@ -7,6 +7,10 @@
 
   <entity name="StudentAbroadArrival" lang="java">
 	<many-to-one name="userStudent"  ref="com.axelor.auth.db.User" title="User Student" />
+	<many-to-one name="definition"  ref="com.axelor.apps.uni.db.Definition" title="Definition" />
+   	<many-to-one name="applicant"  ref="com.axelor.apps.uni.db.ApplicationLine" title="Applicant" />
+   	<many-to-one name="projectLeader" ref="com.axelor.apps.uni.db.Professor" title="Project Leader"/>
+	
   	<string name="coordinatore" title="Coordinatore/Head"/>
   	<string name="coordinatoreEmail" title="Coordinatore Email"/>
   	<string name="hostCountry" title="Host Country"/>

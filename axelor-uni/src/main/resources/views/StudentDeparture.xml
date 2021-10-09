@@ -3,14 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
-    <grid name="student-departure-grid" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" >
+    <grid name="student-departure-grid" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" canArchive="false" canDelete="false" canNew="false" >
      	<field name="definition"/>
 		<field name="applicant" />
 		<field name="projectLeader" />
 		<field name="statusSelect" />
     </grid>
     
-   	<form name="student-departure-form" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" width="large">
+    <grid name="student-departure-leader-grid" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" canArchive="false">
+     	<field name="definition"/>
+		<field name="applicant" />
+		<field name="projectLeader" />
+		<field name="statusSelect" />
+    </grid>
+    
+   	<form name="student-departure-form" title="Student Departure" model="com.axelor.apps.uni.db.StudentDeparture" width="large" canDelete="false" canAttach="false" canArchive="false" canNew="false" canCopy="false">
    	
    	<panel name="firstPanel" colSpan="12">
    		<field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect" />
@@ -56,10 +63,10 @@
 	</panel>
 	
 	<panel name="approveLearningAgreement" title="(LA) Action From University" colSpan="12" sidebar="true">
-		<field name="signByCoordinator" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
-		<field name="isSignCoordinator" hidden="true" colSpan="6" readonlyIf="!isSignCoordinator"/>
+		<field name="signByCoordinator" widget="binary-link" colSpan="6" readonly="true"/>
+		<field name="isSignCoordinator" hidden="true" colSpan="6" readonly="true"/>
 		
-		<field name="signByHod" widget="binary-link" colSpan="6" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
+		<field name="signByHod" widget="binary-link" colSpan="6" readonly="true"/>
 		<field name="isSignHod" hidden="true" colSpan="6" readonlyIf="!isSignHod" />
 		
 		<button onClick="action-group-student-dep-validation-la-by-uni" hidden="true" name="confirmLaByUni" title="Confirm LA" readonlyIf="isSignCoordinator &amp;&amp; isSignHod"/>
@@ -67,7 +74,7 @@
 	</panel>
 	
 	<panel name="admissionLetter" title="Admission Letter from Univ." colSpan="12" sidebar="true">
-		<field name="admissionLetter" widget="binary-link" colSpan="6" readonlyIf="isAdmissionLetter"/>
+		<field name="admissionLetter" widget="binary-link" colSpan="6" readonly="true"/>
 		<field name="isAdmissionLetter" colSpan="6" readonlyIf="!isAdmissionLetter" hidden="true" />
 		<button onClick="action-group-confirm-admission-letter" name="confirmAdmission" hidden="true" title="Confirm Admission Letter" readonlyIf="isAdmissionLetter"/>
 		<spacer colSpan="12"/>
@@ -114,7 +121,7 @@
 		<spacer colSpan="8"/>
 		<button onClick="action-group-confirm-travel-documents"  hidden="true" name="confirmTravelPreparation" title="Confirm Travel preparation" colSpan="4"/>
 		<spacer colSpan="12"/>
-		<button onClick="action-student-dep-accept-doc-email-notification,save" title="Accept document" name="acceptDocument" prompt="You are sending all document aceptance email to student...!"/>
+		<button onClick="action-group-student-dep-accept-doc-email-notification" title="Accept document" name="acceptDocument" prompt="You are sending all document aceptance email to student...!"/>
 	</panel>
 	
 	<panel name="panelSide" sidebar="true" >
@@ -140,6 +147,12 @@
 	</panel>
 		
 	</form>
+	
+	<action-group name="action-group-student-dep-accept-doc-email-notification">
+		<action name="action-student-dep-accept-doc-email-notification"/>
+		<action name="action-student-dep-start-abroad-arrival"/>
+		<action name="save"/>
+	</action-group>
 	
 	<action-group name="action-group-student-dep-validation-la">
 		<action name="action-student-dep-validation-la"/>
@@ -217,6 +230,10 @@
 	
 	<action-method name="action-student-dep-accept-doc-email-notification">
 		<call class="com.axelor.apps.uni.web.StudentDepartureController" method="acceptDocumentNotify"/>
+	</action-method>
+	
+	<action-method name="action-student-dep-start-abroad-arrival">
+		<call class="com.axelor.apps.uni.web.StudentDepartureController" method="startAbroadArrivalProcess"/>
 	</action-method>
 	
 </object-views>

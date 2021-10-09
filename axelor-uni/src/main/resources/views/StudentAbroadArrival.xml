@@ -3,8 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
     
-    <grid name="student-abroad-arrival-grid" title="Student Abroad Arrival" model="com.axelor.apps.uni.db.StudentAbroadArrival" >
-		<field name="userStudent" />
+    <grid name="student-abroad-arrival-grid" title="Student Abroad Arrival" model="com.axelor.apps.uni.db.StudentAbroadArrival" canArchive="false" >
+		<field name="userStudent" readonly="true"/>
+		<field name="definition" readonly="true" />
+		<field name="projectLeader" readonly="true" />
+		<field name="applicant" readonly="true" />
     </grid>
     
    	<form name="student-abroad-arrival-form" title="Student Abroad Arrival" model="com.axelor.apps.uni.db.StudentAbroadArrival" width="large" onNew="action-student-return-attrs-set-student-user">
@@ -29,24 +32,29 @@
 			</panel>
 			
 			<panel name="changeOfLaPanel" title="Eventual change of LA">
-				<field name="changeInLa" />
+				<field name="changeInLa" colSpan="4"/>
+				<button onClick="" title="Inform to Rhein waal Head" name="informLaChange" prompt="You want to inform to Rhein waal Head about change in LA?" colSpan="3" readonlyIf="!changeInLa"/>
+				<spacer colSpan="5"/>
+				<spacer colSpan="12"/>
+				<field name="changeLaForm" widget="binary-link" readonlyIf="!changeInLa" requiredIf="changeInLa"/>
 				<spacer colSpan="6"/>
 				<spacer colSpan="12"/>
-				<field name="changeLaForm" />
-				<spacer colSpan="6"/>
-				<spacer colSpan="12"/>
-				<field name="descriptionLaChange" colSpan="12" widget="html"/>
+				<field name="descriptionLaChange" colSpan="12" widget="html" readonlyIf="!changeInLa" requiredIf="changeInLa"/>
 			</panel>
 			
 			<panel name="extendStayPanel" title="Extension of Stay">
-				<field name="extensionStay" />
+				<field name="extensionStay" colSpan="4"/>
+				<button onClick="" title="Inform to Rhein waal Head" name="informExtension" prompt="You want to inform to Rhein waal Head about Extension?" colSpan="3" readonlyIf="!extensionStay"/>
 				<spacer colSpan="6"/>
-				<field name="extensionDescription" requiredIf="extensionStay" colSpan="12" widget="html"/>
+				<field name="extensionDescription" readonlyIf="!extensionStay" requiredIf="extensionStay" colSpan="12" widget="html"/>
 			</panel>
 		</panel-tabs>
 			
 		<panel name="sidePanel" sidebar="true" >
 			<field name="userStudent" readonly="true" canView="false"/>
+			<field name="definition" readonly="true" canView="false"/>
+			<field name="projectLeader" readonly="true" canView="false"/>
+			<field name="applicant" readonly="true" canView="false"/>
 		</panel>
 	</form>
 	

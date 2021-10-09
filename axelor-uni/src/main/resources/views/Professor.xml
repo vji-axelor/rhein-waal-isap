@@ -17,8 +17,8 @@
 			<field name="firstName" />
 			<field name="lastName" />
 			<field name="phone" />
-			<field name="emailAddress" canNew="true"/>
-			<field name="university" />
+			<field name="emailAddress" canNew="true" />
+			<field name="university" canView="false"/>
 	</panel>
 		
 	<panel name="sidePanel" sidebar="true" >

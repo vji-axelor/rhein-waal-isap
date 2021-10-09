@@ -5,4 +5,5 @@ import com.axelor.apps.uni.db.StudentDeparture;
 public interface StudentDepartureService {
 
   void acceptDocEmail(StudentDeparture studentDeparture);
+  void createAbroadArrival(StudentDeparture studentDeparture);
 }
